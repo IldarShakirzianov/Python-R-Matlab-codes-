@@ -16,7 +16,7 @@ end
 data.Ever_Treated = Ever_Treated;
 
 % Treatment Timing
-treatment_years = NaN(size(ID)); % Use NaN for untreated companies
+treatment_years = NaN(size(ID));
 for i = 1:length(unique_ids)
     idx = ID == unique_ids(i) & Ever_Treated == 1;
     if any(idx)
@@ -26,9 +26,9 @@ for i = 1:length(unique_ids)
 end
 data.Treatment_Year = treatment_years;
 
-% Select Relevant Data for Propensity Score Estimation
+% Select Relevant Data 
 treated_data = data(data.Ever_Treated == 1 & data.Year == data.Treatment_Year - 1, :);
-control_data = data(data.Ever_Treated == 0 & data.SPD == 0, :);  % Add the EPD == 0 condition here
+control_data = data(data.Ever_Treated == 0 & data.SPD == 0, :);  
 selected_data = [treated_data; control_data];
 
 continuous_vars = {'MC', 'ROA', 'DIR', 'IO', 'W', 'NED'};
@@ -42,13 +42,13 @@ all_vars = [continuous_vars, industry_dummies];
 X = table2array(selected_data(:, all_vars));
 y = selected_data.Ever_Treated;
 
-Fit Logistic Regression Model
+% Fit Logistic Regression Model
 mdl = fitglm(X, y, 'Distribution', 'binomial', 'Link', 'logit');
 % Extract and display p-values
 coef_table = mdl.Coefficients;
 p_values = coef_table.pValue;
 
-disp('P-values for logistic regression coefficients:');
+disp('P-values for logistic regression');
 for i = 1:length(all_vars)
     fprintf('%s: p-value = %.4f\n', all_vars{i}, p_values(i+1)); % i+1 to skip the intercept
 end
