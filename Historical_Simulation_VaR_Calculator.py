@@ -81,8 +81,10 @@ def portfolio_value_at_risk(stock_1, stock_2, weight_1, confidence_level):
     data_portfolio['index'] = range(1, len(data_portfolio)+1)
     var_return_index = np.floor(len(data_portfolio)+1*(1-confidence_level))
     portfolio_var = data_portfolio['portfolio_return'][data_portfolio['index'] == var_return_index]
-    print(portfolio_var.iloc[0])
-
+    print(str(round(portfolio_var.iloc[0]*100, 2)) + "%")
+    print("The worst return loss at " + str(confidence_level) + "% Confidence Level is " + str(round(portfolio_var.iloc[0]*100, 2)) + "%")
 
 portfolio_value_at_risk('NVDA', 'AAPL', 0.4, 0.95)
+
+
 
