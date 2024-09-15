@@ -46,7 +46,7 @@ Value_at_Risk_return = (percentile_price - S_0)/S_0
 
 # Print out the results
 print(Value_at_Risk)
-print("The worst return loss at " + str(100-percentile) + "% Confidence Level is " + str(Value_at_Risk_return*100) + "%")
+print("The worst return loss at " + str(100-percentile) + "% Confidence Level is " + str(round(Value_at_Risk_return,2)*100) + "%")
 print("The maximum loss at " + str(100-percentile) + "% Confidence Level is " + str(Value_at_Risk))
 print("the mean and median prices after " + str(T) + " years are " + str(round(mean_price, 2)) + 
       " and " + str(round(median_price, 2)) + " respectively")
